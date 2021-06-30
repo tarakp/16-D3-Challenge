@@ -7,7 +7,7 @@ var svgHeight = 500;
 var margin = {
     top: 20,
     right: 40,
-    bottom: 70,
+    bottom: 60,
     left: 60
 };
 
@@ -75,25 +75,13 @@ d3.csv("./data/data.csv").then(function(healthData){
         .append("circle")
         .attr("cx", d => xTimeScale(d.poverty))
         .attr("cy", d => yTimeScale(d.healthcare))
-        .attr("r", "18")
+        .attr("r", "15")
         // .attr("fill", "pink")
         .classed("stateCircle", true)
-    
-        /////Insert Text Inside the Circle///////////
+        // .text(function(d){return d.abbr})
 
-        // chartGroup.append("text")
-        // .attr("class", "stateText")
-        // .attr("dx", function(d){ return xTimeScale(d[poverty]) })
-        // .text(states)
-
-        // chartGroup.selectAll("text")
-        //     .data(healthData)
-        //     .enter()
-        //     .append("text")
-        //     .attr("x", povertys)
-        //     .attr("y", health)
-        //     .text(states)
-
+        
+       
     // Step 6: Initialize tool tip
     // ==============================
     var toolTip = d3.tip()
@@ -120,6 +108,29 @@ d3.csv("./data/data.csv").then(function(healthData){
             });
 
 
+
+  /////Insert Text Inside the Circle///////////
+        /// This kind of works/////
+        // chartGroup.selectAll("circle")//.append("text")
+        // .text(function(d){return d.abbr})
+        // // .attr("dx", function(d){ return xTimeScale(d[curX]) })
+        // .attr("dx", 10)
+        // .attr("font-size", "11px")
+        // .attr("fill", "black")
+
+        svg.append("g")
+            .selectAll("circle")
+            .data(healthData)
+            .enter()
+            .append("text")
+            .attr("x", (d) => {return xTimeScale(d.poverty+1.07)})
+            .attr("y", (d) => {return yTimeScale(d.healthcare -2.5)})
+            .text(function(d){return d.abbr})
+            .attr("class", "stateText")
+
+
+
+
     // Create axes labels
     chartGroup.append("text")
         .attr("transform", "rotate(-90)")
@@ -130,7 +141,7 @@ d3.csv("./data/data.csv").then(function(healthData){
         .text("Lacks Healthcare (%)");
 
     chartGroup.append("text")
-        .attr("transform", `translate(${width / 2}, ${height + margin.top})`)
+        .attr("transform", `translate(${width / 2}, ${height + margin.top + 15})`)
         .attr("class", "axisText")
         .text("In Poverty (%)");
 
