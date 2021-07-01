@@ -111,20 +111,20 @@ d3.csv("./data/data.csv").then(function(healthData){
 
   /////Insert Text Inside the Circle///////////
         /// This kind of works/////
-        // chartGroup.selectAll("circle")//.append("text")
-        // .text(function(d){return d.abbr})
-        // // .attr("dx", function(d){ return xTimeScale(d[curX]) })
-        // .attr("dx", 10)
-        // .attr("font-size", "11px")
-        // .attr("fill", "black")
+        chartGroup.selectAll("circle")//.append("text")
+        .text(function(d){return d.abbr})
+        // .attr("dx", function(d){ return xTimeScale(d[curX]) })
+        .attr("dx", 10)
+        .attr("font-size", "11px")
+        .attr("fill", "black")
 
         svg.append("g")
             .selectAll("circle")
             .data(healthData)
             .enter()
             .append("text")
-            .attr("x", (d) => {return xTimeScale(d.poverty+1.07)})
-            .attr("y", (d) => {return yTimeScale(d.healthcare -2.5)})
+            .attr("x", (d) => {return xTimeScale(d.poverty + 1.07)})
+            .attr("y", (d) => {return yTimeScale(d.healthcare - 2.5)})
             .text(function(d){return d.abbr})
             .attr("class", "stateText")
 
